@@ -21,8 +21,18 @@ const signin = asyncHandler(async (req, res) => {
     throw new Error("Invalid email or password!");
   } else {
     generateToken(res, user._id);
-    const userBase64 = Buffer.from(JSON.stringify(user)).toString("base64");
-    res.status(201).json({ message: "Signed in", userBase64 });
+
+    res
+      .status(201)
+      .json({
+        message: "Signed in",
+        user: {
+          id: user._id,
+          email: user.email,
+          name: user.name,
+          profile_image: user.profile_image,
+        },
+      });
   }
 });
 
@@ -32,12 +42,18 @@ const signin = asyncHandler(async (req, res) => {
 const signup = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   const userExists = await USER.findOne({ email });
+  const userImage = `https://source.boringavatars.com/beam/100/${name}?colors=FF8900,00000,00000,FF8900,000000`;
   if (userExists) {
     res.status(400);
     throw new Error("Email Address already exists!");
   }
   const hash = await bcrypt.hash(password, 12);
-  const user = await USER.create({ name, email, password: hash });
+  const user = await USER.create({
+    name,
+    email,
+    password: hash,
+    profile_image: userImage,
+  });
 
   if (user) {
     res.status(201).json({
@@ -54,7 +70,11 @@ const signup = asyncHandler(async (req, res) => {
 // @route   POST /api/users/Signout
 // @access  Public
 const signout = asyncHandler(async (req, res) => {
-  res.send("REGISTER");
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(201).json({ message: "Signed out!" });
 });
 
 // @desc    Get user profile

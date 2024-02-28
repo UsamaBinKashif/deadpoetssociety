@@ -6,6 +6,7 @@ const {
   getUserDetails,
   updateUser,
 } = require("../controllers/user.controllers");
+const { protect } = require("../middlewares/auth.middleware");
 
 // Creating an instance of Express Router
 const router = express.Router();
@@ -20,6 +21,6 @@ router.post("/signin", signin);
 router.post("/signout", signout);
 
 // Route for getting and updating user profile
-router.route("/profile").get(getUserDetails).put(updateUser);
+router.route("/profile").get(protect, getUserDetails).put(protect, updateUser);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 const connectToDatabase = require("./configuration/connectToDatabase.js");
 //importing routes
 const postRoutes = require("./routes/posts.js");
@@ -20,6 +21,7 @@ dotenv.config();
 app.use(bodyParser.json({ limit: "30mb", extended: true })); // Parse incoming request bodies in JSON format
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true })); // Parse incoming requests with URL-encoded payloads
 app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
+app.use(cookieParser()); // Parse the cookies
 app.use(helmet()); // Set various HTTP headers for security
 
 // Routes

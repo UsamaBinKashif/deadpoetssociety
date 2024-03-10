@@ -1,19 +1,13 @@
-// Import the action creators 'incremented' and 'decremented' from the 'counterSlice'.
-import { decremented, incremented } from "@/src/store/features/counterSlice";
-import Signin from "@/src/utils/forms/Signin";
-
-// Import the 'Head' component from 'next/head' to set document head metadata.
+import Signin from "@/components/ui/forms/Signin";
+import { SITE_TITLE } from "@/lib/constants";
 import Head from "next/head";
-
 
 export default function Home() {
   return (
     <>
-      {/* Set document head metadata */}
       <Head>
-        <title>DEAD POETS SOCIETY | LOGIN</title>
+        <title>{SITE_TITLE}®</title>
       </Head>
-
       <Signin />
     </>
   );

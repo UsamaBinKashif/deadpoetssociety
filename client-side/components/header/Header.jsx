@@ -1,24 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-const Header = () => {
-  return (
-    <header class="">
-      <div class="container mx-auto flex pt-5  justify-between items-center">
-        <img src="/icon.png" alt="main-icon" className="max-w-[50px]" />
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSelector } from "react-redux";
+import { Button } from "../ui/button";
 
-        <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base">
-          Button
-          <svg
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            class="w-4 h-4 ml-1"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </button>
+const Header = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  return (
+    <header class="bg-orange-100 p-5">
+      <div class="container mx-auto flex   justify-between items-center">
+        <img src="/icon.png" alt="main-icon" className="max-w-[50px]" />
+        <div className="flex gap-x-4">
+          <Button className="text-xs">Add</Button>
+          <Button variant="outline" className="text-xs">Logout</Button>
+
+          <Avatar title={userInfo.name}>
+            <AvatarImage src={userInfo.profile_image} />
+            <AvatarFallback>{userInfo.name.slice(0, 1)}</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </header>
   );

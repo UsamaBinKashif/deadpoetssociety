@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }) {
     // Wrap your entire application with the Provider component to make the Redux store available to your components.
     <Provider store={store}>
       {/* Render the current page component (e.g., Home, About, etc.) with its props. */}
+      
       <Component {...pageProps} />
     </Provider>
   );

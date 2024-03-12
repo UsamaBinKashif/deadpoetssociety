@@ -22,7 +22,7 @@ import {
 const Signin = () => {
   return (
     <section>
-      <div className="max-w-screen-xl mx-auto px-4 py-28 gap-12 text-gray-600 overflow-hidden md:px-8 md:flex items-center">
+      <div className="max-w-screen-xl mx-auto px-4 py-28 gap-12 text-gray-600 overflow-hidden md:px-8 justify-center md:justify-normal flex items-center">
         <div className="flex-1 hidden md:block">
           {/* Replace with your image */}
           <img src="/assets/hero.svg" className="max-w-lg" />
@@ -30,31 +30,31 @@ const Signin = () => {
         <div className="flex-none space-y-5 max-w-xl">
           <Card className="w-[350px]">
             <CardHeader>
-              <CardTitle>Create project</CardTitle>
+              <CardTitle>Enter the dead poets society.</CardTitle>
               <CardDescription>
-                Deploy your new project in one-click.
+                sign in with your existing account.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form>
                 <div className="grid w-full items-center gap-4 tracking-[1.5px]">
                   <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      placeholder="This is your public display name."
-                    />
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input id="email" placeholder="deadpoet@society.com" />
                   </div>
                   <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" placeholder="Name of your project" />
+                    <Label htmlFor="passowrd">Password</Label>
+                    <Input
+                      id="password"
+                      placeholder="do not worry, we keep secrets."
+                    />
                   </div>
                 </div>
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">Cancel</Button>
-              <Button>Deploy</Button>
+              <Button variant="outline">Do not have an account?</Button>
+              <Button>Signin</Button>
             </CardFooter>
           </Card>
         </div>

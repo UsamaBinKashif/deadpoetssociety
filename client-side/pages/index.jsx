@@ -8,6 +8,7 @@ export default function Home() {
       <Head>
         <title>{SITE_TITLE}®</title>
       </Head>
+
       <Signin />
     </>
   );

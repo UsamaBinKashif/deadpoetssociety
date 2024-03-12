@@ -20,25 +20,28 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 
-const Signin = () => {
+const Signup = () => {
   return (
     <section>
-      <div className="max-w-screen-xl mx-auto px-4 py-28 gap-12 text-gray-600 overflow-hidden md:px-8 justify-center md:justify-normal flex items-center">
+      <div className="max-w-screen-xl mx-auto px-4 py-24 gap-12 text-gray-600 overflow-hidden md:px-8 justify-center md:justify-normal flex items-center">
         <div className="flex-1 hidden md:block">
-          {/* Replace with your image */}
-          <img src="/assets/signin-poster.svg" className="max-w-lg" />
+          <img src="/assets/signup-poster.svg" className="max-w-lg" />
         </div>
         <div className="flex-none space-y-5 max-w-xl">
           <Card className="w-[350px]">
             <CardHeader>
-              <CardTitle>Enter the dead poets society.</CardTitle>
+              <CardTitle>Elevate your thoughts, Inspire the world.</CardTitle>
               <CardDescription>
-                sign in with your existing account.
+                sign up with your new account.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form>
                 <div className="grid w-full items-center gap-4 tracking-[1.5px]">
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" placeholder="a dead poet" />
+                  </div>
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="email">Email Address</Label>
                     <Input id="email" placeholder="deadpoet@society.com" />
@@ -54,12 +57,10 @@ const Signin = () => {
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">
-                <Link href="/signup">
-                  Do not have an account?
-                </Link>
+            <Button variant="outline">
+                <Link href="/">Already have an account?</Link>
               </Button>
-              <Button>Signin</Button>
+              <Button>Signup</Button>
             </CardFooter>
           </Card>
         </div>
@@ -68,4 +69,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;

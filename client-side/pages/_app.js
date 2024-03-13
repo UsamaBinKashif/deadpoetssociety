@@ -1,14 +1,12 @@
 // Import the Redux store that you've configured.
 import store from "@/src/store";
-import {
-  QueryClient,
-  QueryClientProvider
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Import the Provider component from 'react-redux' to connect your React components to the Redux store.
 import { Provider } from "react-redux";
 
 // Import your global styles (e.g., SCSS).
 import "@/styles/global.scss";
+import { Toaster } from "@/components/ui/toaster";
 
 // Define your main application component.
 export default function App({ Component, pageProps }) {
@@ -19,7 +17,7 @@ export default function App({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         {/* Render the current page component (e.g., Home, About, etc.) with its props. */}
-
+        <Toaster />
         <Component {...pageProps} />
       </Provider>
     </QueryClientProvider>

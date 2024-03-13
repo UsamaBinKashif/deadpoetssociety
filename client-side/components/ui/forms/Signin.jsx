@@ -11,40 +11,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { API_BASE } from "@/lib/constants";
+import { signinuser } from "@/lib/actions";
+import { signinSchema } from "@/lib/schemas";
 import { setCredentials } from "@/src/store/features/authSlice";
-import axios from "axios";
+import clsx from "clsx";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import * as Yup from "yup";
 
 const Signin = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-
- 
-
-  const signinuser = async () => {
-    try {
-      const { data } = await axios.post(
-        `${API_BASE}/api/user/signin`,
-        formik.values
-      );
-      if (data.message == "Signed in") {
-        dispatch(setCredentials(data.user));
-        // router.replace("/dashboard");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const signinSchema = Yup.object({
-    email: Yup.string().email().required("Enter a valid email"),
-    password: Yup.string().required("Enter a valid password"),
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -52,14 +30,15 @@ const Signin = () => {
       password: "",
     },
     validationSchema: signinSchema,
-    onSubmit: () => {
-      signinuser();
-      console.log(formik.values);
-    },
-    onChange: (values) => {
-      console.log("Form values changed:", values);
+    onSubmit: async () => {
+      const data = await signinuser(formik.values);
+      if (data.message == "Signed in") {
+        dispatch(setCredentials(data.user));
+        router.replace("/dashboard");
+      }
     },
   });
+  const { errors, touched } = formik; // Destructure errors and touched from formik
 
   return (
     <section>
@@ -85,8 +64,8 @@ const Signin = () => {
             </CardHeader>
             <CardContent>
               <div>
-                <div className="grid w-full items-center gap-4 tracking-[1.5px]">
-                  <div className="flex flex-col space-y-1.5">
+                <div className="grid w-full items-center gap-5 tracking-[1.5px]">
+                  <div className="flex flex-col space-y-1.5 relative">
                     <Label htmlFor="email">Email Address</Label>
                     <Input
                       id="email"
@@ -94,11 +73,18 @@ const Signin = () => {
                       type="email"
                       {...formik.getFieldProps("email")}
                       onChange={formik.handleChange}
-                      required
                       placeholder="deadpoet@society.com"
+                      className={clsx(
+                        touched.email && errors.email && "border-red-500" // Add border-red-500 class if email field is touched and there's an error
+                      )}
                     />
+                    {errors.email && touched.email ? (
+                      <p className="text-[10px] absolute -bottom-4 text-red-500">
+                        {errors.email}
+                      </p>
+                    ) : null}
                   </div>
-                  <div className="flex flex-col space-y-1.5">
+                  <div className="flex flex-col space-y-1.5 relative">
                     <Label htmlFor="passowrd">Password</Label>
                     <Input
                       id="password"
@@ -106,9 +92,16 @@ const Signin = () => {
                       type="password"
                       {...formik.getFieldProps("password")}
                       onChange={formik.handleChange}
-                      required
                       placeholder="do not worry, we keep secrets."
+                      className={clsx(
+                        touched.password && errors.password && "border-red-500" // Add border-red-500 class if email field is touched and there's an error
+                      )}
                     />
+                    {errors.password && touched.password ? (
+                      <p className="text-[10px] absolute -bottom-4 text-red-500">
+                        {errors.password}
+                      </p>
+                    ) : null}
                   </div>
                 </div>
               </div>

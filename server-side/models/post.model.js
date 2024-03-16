@@ -11,10 +11,16 @@ const postSchema = mongoose.Schema(
       ref: "user",
       required: true,
     },
-    comments: {
-      type: Array,
-      default: [],
-    },
+    comment: [
+      {
+        text: String,
+        created: { type: Date, default: Date.now },
+        postedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+        },
+      },
+    ],
   },
   {
     // Adding timestamps to track creation and modification dates

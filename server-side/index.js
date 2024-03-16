@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const connectToDatabase = require("./configuration/connectToDatabase.js");
 //importing routes
-const postRoutes = require("./routes/posts.js");
+const postRoutes = require("./routes/posts.routes.js");
 const userRoutes = require("./routes/user.routes.js");
 
 // Initializing Express app

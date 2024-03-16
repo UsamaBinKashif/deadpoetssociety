@@ -19,6 +19,42 @@ const handleCreatePost = asyncHandler(async (req, res) => {
   }
 });
 
+const handleAddComment = asyncHandler(async (req, res) => {
+  const { postId, text, commentedBy } = req.body;
+
+  if (!postId || !text || !commentedBy) {
+    res.status(400).json({ message: "all fields are required!" });
+    return;
+  }
+  try {
+    const updatedPost = await POST.findByIdAndUpdate(
+      postId,
+      {
+        $push: {
+          comment: {
+            text,
+            postedBy: commentedBy, // Assuming 'postedBy' is the user who commented
+          },
+        },
+      },
+      { new: true } // To return the updated post
+    );
+    if (!updatedPost) {
+      res.status(404).json({ message: "Post not found!" });
+      return;
+    }
+
+    res
+      .status(201)
+      .json({ message: "Comment added successfully!", post: updatedPost });
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    throw new Error("internal server error!");
+  }
+});
+
 module.exports = {
   handleCreatePost,
+  handleAddComment,
 };

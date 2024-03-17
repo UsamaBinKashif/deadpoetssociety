@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const POST = require("../models/post.model");
 
+// @desc    generate a new post
+// @route   POST /api/posts/create-post
+// @access  Public
 const handleCreatePost = asyncHandler(async (req, res) => {
   const { description, postedBy } = req.body;
   if (!description) {
@@ -13,6 +16,22 @@ const handleCreatePost = asyncHandler(async (req, res) => {
   if (createdPost) {
     res.status(201).json({ message: "posted!" });
   } else {
+    res.status(500);
+    throw new Error("internal server error!");
+  }
+});
+
+// @desc    read all the posts inside database
+// @route   POST /api/posts/read-all
+// @access  Public
+const handleReadAllPosts = asyncHandler(async (req, res) => {
+  try {
+    const posts = await POST.find();
+    if (posts) {
+      res.status(201).json(posts);
+    }
+    res.status(404).json({ message: "no posts found!" });
+  } catch (err) {
     res.status(500);
     throw new Error("internal server error!");
   }
@@ -93,4 +112,5 @@ module.exports = {
   handleCreatePost,
   handleAddComment,
   handleDeleteComment,
+  handleReadAllPosts,
 };

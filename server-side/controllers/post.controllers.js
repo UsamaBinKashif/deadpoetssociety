@@ -22,7 +22,7 @@ const handleCreatePost = asyncHandler(async (req, res) => {
 });
 
 // @desc    read all the posts inside database
-// @route   POST /api/posts/read-all
+// @route   GET /api/posts/read-all
 // @access  Public
 const handleReadAllPosts = asyncHandler(async (req, res) => {
   try {
@@ -37,6 +37,26 @@ const handleReadAllPosts = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    read single post
+// @route   POST /api/posts/read-all
+// @access  Public
+const handleReadPost = asyncHandler(async (req, res) => {
+  const { postId } = req.body;
+  try {
+    const post = await POST.findById({ postId });
+    if (post) {
+      res.status(201).json(posts);
+    }
+    res.status(404).json({ message: "no post found!" });
+  } catch (err) {
+    res.status(500);
+    throw new Error("internal server error!");
+  }
+});
+
+// @desc    add a comment on post
+// @route   PUT /api/posts/add-comment
+// @access  Public
 const handleAddComment = asyncHandler(async (req, res) => {
   const { postId, text, commentedBy } = req.body;
 
@@ -69,6 +89,9 @@ const handleAddComment = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    delete comment, user who owns the post and user who has commented can only perform this/
+// @route   DELETE /api/posts/del-comment
+// @access  Public
 const handleDeleteComment = asyncHandler(async (req, res) => {
   const { postId, commentId, postedBy, commentedBy } = req.body;
 

@@ -63,14 +63,14 @@ const handleReadPost = asyncHandler(async (req, res) => {
 const handleReadUserPosts = asyncHandler(async (req, res) => {
   const { postedBy } = req.body;
   try {
-    const posts = await POST.find( {postedBy} );
-    if (posts) {
-      res.status(201).json(posts);
+    const posts = await POST.find({ postedBy });
+    if (posts && posts.length > 0) { // Check if posts array is not empty
+      res.status(200).json(posts); // Use 200 status for successful response
+    } else {
+      res.status(404).json({ message: "No posts found!" }); // Send 404 status when no posts are found
     }
-    res.status(404).json({ message: "no posts found!" });
-  } catch (err) {
-    res.status(500);
-    throw new Error("internal server error!");
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error!" }); // Send 500 status for internal server error
   }
 });
 

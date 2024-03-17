@@ -45,9 +45,26 @@ const handleReadPost = asyncHandler(async (req, res) => {
   try {
     const post = await POST.findById({ postId });
     if (post) {
-      res.status(201).json(posts);
+      res.status(201).json(post);
     }
     res.status(404).json({ message: "no post found!" });
+  } catch (err) {
+    res.status(500);
+    throw new Error("internal server error!");
+  }
+});
+
+// @desc    read logged users posts
+// @route   POST /api/posts/read-all
+// @access  Public
+const handleReadUserPosts = asyncHandler(async (req, res) => {
+  const { postedBy } = req.body;
+  try {
+    const posts = await POST.find({ postedBy });
+    if (posts) {
+      res.status(201).json(posts);
+    }
+    res.status(404).json({ message: "no posts found!" });
   } catch (err) {
     res.status(500);
     throw new Error("internal server error!");
@@ -136,4 +153,6 @@ module.exports = {
   handleAddComment,
   handleDeleteComment,
   handleReadAllPosts,
+  handleReadPost,
+  handleReadUserPosts
 };

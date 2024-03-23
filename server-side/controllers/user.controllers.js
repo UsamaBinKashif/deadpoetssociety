@@ -24,6 +24,7 @@ const signin = asyncHandler(async (req, res) => {
 
     res.status(201).json({
       message: "Signed in",
+      success: true,
       user: {
         id: user._id,
         email: user.email,
@@ -56,6 +57,7 @@ const signup = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       message: "Signed up successfully!",
+      success: true,
       // user: { _id: user._id, email: user.email, name: user.name },
     });
   } else {
@@ -101,6 +103,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
     res.status(200).json({
       message: "Updated user profile!",
+      success:true,
       user: {
         id: updatedUser._id,
         email: updatedUser.email,

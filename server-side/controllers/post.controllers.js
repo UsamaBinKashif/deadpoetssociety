@@ -16,8 +16,7 @@ const handleCreatePost = asyncHandler(async (req, res) => {
   if (createdPost) {
     res.status(201).json({ message: "posted!" });
   } else {
-    res.status(500);
-    throw new Error("internal server error!");
+    res.status(500).json({ message: "internal server error!" });
   }
 });
 
@@ -32,8 +31,7 @@ const handleReadAllPosts = asyncHandler(async (req, res) => {
     }
     res.status(404).json({ message: "no posts found!" });
   } catch (err) {
-    res.status(500);
-    throw new Error("internal server error!");
+    res.status(500).json({ message: "internal server error!" });
   }
 });
 
@@ -51,9 +49,7 @@ const handleReadPost = asyncHandler(async (req, res) => {
     }
     res.status(404).json({ message: "no post found!" });
   } catch (err) {
-    console.log(err);
-    res.status(500);
-    throw new Error("internal server error!");
+    res.status(500).json({ message: "internal server error!" });
   }
 });
 
@@ -64,13 +60,14 @@ const handleReadUserPosts = asyncHandler(async (req, res) => {
   const { postedBy } = req.body;
   try {
     const posts = await POST.find({ postedBy });
-    if (posts && posts.length > 0) { // Check if posts array is not empty
+    if (posts && posts.length > 0) {
+      // Check if posts array is not empty
       res.status(200).json(posts); // Use 200 status for successful response
     } else {
-      res.status(404).json({ message: "No posts found!" }); // Send 404 status when no posts are found
+      res.status(404).json({ message: "no posts found!" }); // Send 404 status when no posts are found
     }
   } catch (error) {
-    res.status(500).json({ error: "Internal server error!" }); // Send 500 status for internal server error
+    res.status(500).json({ error: "internal server error!" }); // Send 500 status for internal server error
   }
 });
 
@@ -104,8 +101,7 @@ const handleAddComment = asyncHandler(async (req, res) => {
 
     res.status(201).json({ message: "commented!", post: updatedPost });
   } catch (error) {
-    res.status(500);
-    throw new Error("internal server error!");
+    res.status(500).json({ message: "internal server error!" });
   }
 });
 
@@ -146,8 +142,7 @@ const handleDeleteComment = asyncHandler(async (req, res) => {
 
     res.status(200).json({ message: "comment deleted!" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error!" });
+    res.status(500).json({ message: "internal server error!" });
   }
 });
 

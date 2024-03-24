@@ -12,12 +12,16 @@ const signin = asyncHandler(async (req, res) => {
 
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
-    res.status(401);
+    res
+      .status(401)
+      .json({ message: "Invalid email or password!", success: false });
     throw new Error("Invalid email or password!");
   }
 
   if (!user) {
-    res.status(401);
+    res
+      .status(401)
+      .json({ message: "Invalid email or password!", success: false });
     throw new Error("Invalid email or password!");
   } else {
     generateToken(res, user._id);
@@ -61,7 +65,10 @@ const signup = asyncHandler(async (req, res) => {
       // user: { _id: user._id, email: user.email, name: user.name },
     });
   } else {
-    res.status(400);
+    res.status(400).json({
+      message: "Invalid user data!",
+      success: false,
+    });
     throw new Error("Invalid user data!");
   }
 });
@@ -74,7 +81,7 @@ const signout = asyncHandler(async (req, res) => {
     httpOnly: true,
     expires: new Date(0),
   });
-  res.status(201).json({ message: "Signed out!" });
+  res.status(201).json({ message: "Signed out!", success: true });
 });
 
 // @desc    Get user profile
@@ -103,7 +110,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
     res.status(200).json({
       message: "Updated user profile!",
-      success:true,
+      success: true,
       user: {
         id: updatedUser._id,
         email: updatedUser.email,
@@ -112,7 +119,10 @@ const updateUser = asyncHandler(async (req, res) => {
       },
     });
   } else {
-    res.status(400);
+    res.status(400).json({
+      message: "User not found!",
+      success: false,
+    });
     throw new Error("User not found!");
   }
 });

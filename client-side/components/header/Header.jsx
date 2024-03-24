@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import { signoutuser } from "@/lib/actions";
-import { setCredentials } from "@/src/store/features/authSlice";
+import { logout, setCredentials } from "@/src/store/features/authSlice";
 import { useRouter } from "next/router";
 import {
   Popover,
@@ -20,7 +20,7 @@ const Header = () => {
       const data = await signoutuser();
       if (data.success == true) {
         router.replace("/");
-        dispatch(setCredentials(null));
+        dispatch(logout());
       }
     } catch (error) {}
   };

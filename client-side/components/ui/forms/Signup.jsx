@@ -18,10 +18,14 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useToast } from "../use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
+import Spinner from "../spinner";
+import { useState } from "react";
 
 const Signup = () => {
   const router = useRouter();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -31,9 +35,26 @@ const Signup = () => {
     },
     validationSchema: signupSchema,
     onSubmit: async () => {
-      const data = await signupuser(formik.values);
-      if (data.success) {
-        router.replace("/");
+      try {
+        setLoading(true);
+        const data = await signupuser(formik.values);
+        if (data.success == true) {
+          router.replace("/");
+        } else {
+          toast({
+            variant: "destructive",
+            title: data.message,
+            action: <ToastAction altText="try again">Try Again</ToastAction>,
+          });
+        }
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: error.message,
+          action: <ToastAction altText="try again">Try Again</ToastAction>,
+        });
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -116,11 +137,14 @@ const Signup = () => {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline">
-                <Link href="/" type="button">Already have an account?</Link>
+            <CardFooter className="flex gap-y-4 flex-col-reverse items-start">
+              <Button variant="outline" type="button">
+                <Link href="/">Already have an account?</Link>
               </Button>
-              <Button type="submit">Signup</Button>
+              <Button type="submit" disabled={loading}>
+                {loading && <Spinner />}
+                Signup
+              </Button>
             </CardFooter>
           </Card>
         </form>

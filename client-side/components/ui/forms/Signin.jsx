@@ -42,7 +42,7 @@ const Signin = () => {
         const data = await signinuser(formik.values);
         if (data.success == true) {
           dispatch(setCredentials(data.user));
-          router.replace("/dashboard");
+          router.replace("/society");
         } else {
           toast({
             variant: "destructive",
@@ -129,7 +129,7 @@ const Signin = () => {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex gap-y-4 flex-col-reverse items-start">
               <Button variant="outline" type="button">
                 <Link href="/signup">Do not have an account?</Link>
               </Button>

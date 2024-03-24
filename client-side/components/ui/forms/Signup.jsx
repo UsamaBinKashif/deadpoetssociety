@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signupuser } from "@/lib/actions";
 import { signupSchema } from "@/lib/schemas";
-import { ToastAction } from "@radix-ui/react-toast";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import Link from "next/link";
@@ -33,7 +32,7 @@ const Signup = () => {
     validationSchema: signupSchema,
     onSubmit: async () => {
       const data = await signupuser(formik.values);
-      if (data.message == "Signed up successfully!") {
+      if (data.success) {
         router.replace("/");
       }
     },
@@ -119,7 +118,7 @@ const Signup = () => {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline">
-                <Link href="/">Already have an account?</Link>
+                <Link href="/" type="button">Already have an account?</Link>
               </Button>
               <Button type="submit">Signup</Button>
             </CardFooter>

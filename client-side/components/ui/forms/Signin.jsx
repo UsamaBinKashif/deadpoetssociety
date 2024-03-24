@@ -18,11 +18,17 @@ import clsx from "clsx";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import Spinner from "../spinner";
+import { ToastAction } from "@radix-ui/react-toast";
+import { useToast } from "../use-toast";
 
 const Signin = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -31,10 +37,27 @@ const Signin = () => {
     },
     validationSchema: signinSchema,
     onSubmit: async () => {
-      const data = await signinuser(formik.values);
-      if (data.message == "Signed in") {
-        dispatch(setCredentials(data.user));
-        router.replace("/dashboard");
+      try {
+        setLoading(true);
+        const data = await signinuser(formik.values);
+        if (data.success == true) {
+          dispatch(setCredentials(data.user));
+          router.replace("/dashboard");
+        } else {
+          toast({
+            variant: "destructive",
+            title: data.message,
+            action: <ToastAction altText="try again">Try Again</ToastAction>,
+          });
+        }
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: error.message,
+          action: <ToastAction altText="try again">Try Again</ToastAction>,
+        });
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -107,10 +130,14 @@ const Signin = () => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">
+              <Button variant="outline" type="button">
                 <Link href="/signup">Do not have an account?</Link>
               </Button>
-              <Button type="submit">Signin</Button>
+
+              <Button type="submit" disabled={loading}>
+                {loading && <Spinner />}
+                Signin
+              </Button>
             </CardFooter>
           </Card>
         </form>

@@ -27,11 +27,11 @@ const handleReadAllPosts = asyncHandler(async (req, res) => {
   try {
     const posts = await POST.find();
     if (posts) {
-      res.status(201).json(posts);
+      res.status(201).json({ posts, success: true });
     }
-    res.status(404).json({ message: "no posts found!" });
+    res.status(404).json({ message: "no posts found!", success: false });
   } catch (err) {
-    res.status(500).json({ message: "internal server error!" });
+    res.status(500).json({ message: "internal server error!", success: false });
   }
 });
 

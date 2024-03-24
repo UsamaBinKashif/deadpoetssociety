@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE } from "./constants";
 
+//user actions
 const signinuser = async (values) => {
   try {
     const { data } = await axios.post(`${API_BASE}/api/user/signin`, values);
@@ -27,6 +28,16 @@ const signoutuser = async () => {
     return error.response.data;
   }
 };
+//-----------
 
-export { signinuser, signoutuser, signupuser };
+//post actions
+const getallposts = async () => {
+  try {
+    const { data } = await axios.get(`${API_BASE}/api/posts/read-all`);
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
 
+export { signinuser, signoutuser, signupuser, getallposts };

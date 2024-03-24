@@ -1,11 +1,15 @@
-import Header from "@/components/header/Header";
-import React from "react";
+import dynamic from "next/dynamic";
+import Poetries from "@/components/poetry/Poetries";
+const Header = dynamic(() => import("@/components/header/Header"), {
+  ssr: false,
+});
 
 const index = () => {
   return (
-    <section>
+    <main>
       <Header />
-    </section>
+      <Poetries />
+    </main>
   );
 };
 

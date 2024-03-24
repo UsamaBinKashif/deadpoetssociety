@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useDispatch, useSelector } from "react-redux";
-import { Button } from "../ui/button";
-import { signoutuser } from "@/lib/actions";
-import { logout, setCredentials } from "@/src/store/features/authSlice";
-import { useRouter } from "next/router";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { signoutuser } from "@/lib/actions";
+import { logout } from "@/src/store/features/authSlice";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "../ui/button";
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Header = () => {
           <PopoverTrigger asChild>
             <Avatar title={userInfo?.name}>
               <AvatarImage src={userInfo?.profile_image} />
-              <AvatarFallback>{userInfo?.name.slice(0, 1)}</AvatarFallback>
+              <AvatarFallback>{userInfo?.name?.slice(0, 1)}</AvatarFallback>
             </Avatar>
           </PopoverTrigger>
           <PopoverContent className="w-60 mr-20">
@@ -42,7 +42,7 @@ const Header = () => {
                 <h4 className="font-medium leading-none">{userInfo?.name}</h4>
               </div>
               <div className="flex gap-x-4">
-                <Button className="text-xs">Add Poetry</Button>
+                <Button className="text-xs outline-none">Add Poetry</Button>
 
                 <Button
                   variant="outline"

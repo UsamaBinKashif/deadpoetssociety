@@ -12,7 +12,23 @@ const handleCreatePost = asyncHandler(async (req, res) => {
     throw new Error("description is required!");
   }
 
-  const createdPost = await POST.create({ description, postedBy });
+  // Find the user by the postedBy ID
+  const user = await USER.findById(postedBy);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found!");
+  }
+
+  // Create the post with the user's image_url and name
+  const createdPost = await POST.create({
+    description,
+    postedBy: {
+      user: user._id,
+      profile_image: user.profile_image,
+      name: user.name,
+    },
+  });
 
   if (createdPost) {
     res.status(201).json({ message: "posted!" });
@@ -89,7 +105,7 @@ const handleAddComment = asyncHandler(async (req, res) => {
       res.status(404).json({ message: "user not found!" });
       return;
     }
-
+    // console.log(user);
     const updatedPost = await POST.findByIdAndUpdate(
       postId,
       {
@@ -97,8 +113,9 @@ const handleAddComment = asyncHandler(async (req, res) => {
           comment: {
             text,
             postedBy: {
-              postedBy: commentedBy,
+              user: user._id,
               profile_image: user.profile_image,
+              name: user.name,
             },
           },
         },

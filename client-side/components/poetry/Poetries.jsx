@@ -2,6 +2,7 @@ import { getallposts } from "@/lib/actions";
 import { Suspense, useEffect, useState } from "react";
 import SkeletonLoader from "./SkeletonLoader";
 import Poetry from "./Poetry";
+import { Button } from "../ui/button";
 
 const Poetries = () => {
   const [posts, setPosts] = useState([]);
@@ -15,7 +16,10 @@ const Poetries = () => {
     getPosts();
   }, []);
   return (
-    <section className="flex p-20 gap-x-4">
+    <section className="flex p-20 flex-wrap gap-4 relative">
+      <div className="absolute top-4 right-14">
+        <Button className="text-xs outline-none">Add Poetry</Button>
+      </div>
       <Suspense fallback={<SkeletonLoader />}>
         {posts.map((post) => (
           <Poetry key={post?._id} poetry={post} />

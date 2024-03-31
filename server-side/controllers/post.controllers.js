@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const POST = require("../models/post.model");
+const USER = require("../models/user.model");
 
 // @desc    generate a new post
 // @route   POST /api/posts/create-post
@@ -40,7 +41,6 @@ const handleReadAllPosts = asyncHandler(async (req, res) => {
 // @access  Public
 const handleReadPost = asyncHandler(async (req, res) => {
   const { postId } = req.body;
-  console.log(postId);
   const post = await POST.findById({ _id: postId });
 
   try {
@@ -82,13 +82,24 @@ const handleAddComment = asyncHandler(async (req, res) => {
     return;
   }
   try {
+    // Assuming User model has a profileImage field
+    const user = await USER.findById(commentedBy);
+
+    if (!user) {
+      res.status(404).json({ message: "user not found!" });
+      return;
+    }
+
     const updatedPost = await POST.findByIdAndUpdate(
       postId,
       {
         $push: {
           comment: {
             text,
-            postedBy: commentedBy, // Assuming 'postedBy' is the user who commented
+            postedBy: {
+              postedBy: commentedBy,
+              profile_image: user.profile_image,
+            },
           },
         },
       },

@@ -12,16 +12,21 @@ const userRoutes = require("./routes/user.routes.js");
 
 // Initializing Express app
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Allow this origin to send requests
+    credentials: true, // Allow cookies and authorization headers
+  })
+); //Enable Cross-Origin Resource Sharing (CORS)
 
 //connecting to databse
 connectToDatabase();
 
 // Middleware
 dotenv.config();
+app.use(cookieParser()); // Parse the cookies
 app.use(bodyParser.json({ limit: "30mb", extended: true })); // Parse incoming request bodies in JSON format
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true })); // Parse incoming requests with URL-encoded payloads
-app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
-app.use(cookieParser()); // Parse the cookies
 app.use(helmet()); // Set various HTTP headers for security
 
 // Routes

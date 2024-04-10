@@ -33,7 +33,9 @@ const signoutuser = async () => {
 //post actions
 const getallposts = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE}/api/posts/read-all`);
+    const { data } = await axios.get(`${API_BASE}/api/posts/read-all`, {
+      withCredentials: true, // This will send cookies along with the request
+    });
     return data;
   } catch (error) {
     return error.response.data;

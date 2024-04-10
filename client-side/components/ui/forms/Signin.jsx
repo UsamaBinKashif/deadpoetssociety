@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import Spinner from "../spinner";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useToast } from "../use-toast";
+import Cookies from "js-cookie";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,8 @@ const Signin = () => {
         const data = await signinuser(formik.values);
         if (data.success == true) {
           dispatch(setCredentials(data.user));
+          Cookies.set("jwt", data.token);
+
           router.replace("/society");
         } else {
           toast({

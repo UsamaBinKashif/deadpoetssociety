@@ -14,7 +14,7 @@ const userRoutes = require("./routes/user.routes.js");
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://dpsapi.vercel.app/","https://deadpoetssociety.vercel.app/"], // Allow this origin to send requests
+    origin: ["http://localhost:3000", "https://dpsapi.vercel.app", "https://deadpoetssociety.vercel.app"], // Allow this origin to send requests
     credentials: true, // Allow cookies and authorization headers
   })
 ); //Enable Cross-Origin Resource Sharing (CORS)

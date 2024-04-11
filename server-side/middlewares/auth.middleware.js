@@ -3,15 +3,13 @@ const USER = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const protect = asyncHandler(async (req, res, next) => {
-  let token;
-
-  token = req.cookies.jwt;
+  const token = req.cookies.jwt
 
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = await USER.findById(decoded.userId).select('-password');
+      req.user = await USER.findById(decoded.userId)
       next();
     } catch (error) {
       console.error(error);
@@ -24,4 +22,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { protect };
+module.exports = { protect };

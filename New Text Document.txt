@@ -1,0 +1,8 @@
+remove underlines from emails,
+make download modals draggable,
+fix blurry text on get link modal,
+placeholder colors,
+schedule transfer issue,
+animation time on share modals,
+transfers portal issues,
+pricing modal issues.

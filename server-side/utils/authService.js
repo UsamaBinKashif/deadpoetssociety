@@ -1,18 +1,11 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
-const generateToken = (res, user_id) => {
-  const token = jwt.sign({ user_id }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
-  res
-    .cookie("jwt", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      path: "/"
-    }).send("cookie sent")
+const generateToken = (res, user_id, callback) => {
+  const userIdString = user_id.toString(); // Convert ObjectId to string
 
+  let token = jwt.sign({ userIdString }, "6CaeS80u6avrzqL0");
+  return token
 };
 
 module.exports = generateToken;

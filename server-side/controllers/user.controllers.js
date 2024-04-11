@@ -24,12 +24,12 @@ const signin = asyncHandler(async (req, res) => {
       .json({ message: "Invalid email or password!", success: false });
     throw new Error("Invalid email or password!");
   } else {
-    const token = generateToken(res, user._id);
+    generateToken(res, user._id);
 
     res.status(201).json({
       message: "Signed in",
       success: true,
-      token,
+    
       user: {
         id: user._id,
         email: user.email,

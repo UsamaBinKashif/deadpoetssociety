@@ -10,9 +10,9 @@ const generateToken = (res, user_id) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-    }).send()
+      path: "/"
+    }).send("cookie sent")
 
-    return token
 };
 
 module.exports = generateToken;

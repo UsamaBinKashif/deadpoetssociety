@@ -1,0 +1,30 @@
+# Combined rules from client/.gitignore
+/client-side/node_modules
+/client-side/.pnp
+/client-side.pnp.js
+/client-side/.yarn/install-state.gz
+/client-side/coverage
+/client-side/.next/
+/client-side/out/
+/client-side/build
+/client-side/.DS_Store
+/client-side/*.pem
+/client-side/npm-debug.log*
+/client-side/yarn-debug.log*
+/client-side/yarn-error.log*
+/client-side/.env*.local
+/client-side/.vercel
+/client-side/*.tsbuildinfo
+/client-side/next-env.d.ts
+
+# Combined rules from server/.gitignore
+/server-side/node_modules
+/server-side/npm-debug.log*
+/server-side/yarn-debug.log*
+/server-side/yarn-error.log*
+/server-side/.env*.local
+/server-side/*.env
+
+# Rules from root folder .gitignore
+/misc/design
+

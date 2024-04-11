@@ -25,7 +25,7 @@ const signin = asyncHandler(async (req, res) => {
     throw new Error("Invalid email or password!");
   }
 
-  let token = generateToken(res, user._id)
+  generateToken(res, user._id)
   res.status(201).json({
     message: "Signed in",
     success: true,

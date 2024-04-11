@@ -29,7 +29,6 @@ const signin = asyncHandler(async (req, res) => {
   res.status(201).json({
     message: "Signed in",
     success: true,
-    token,
     user: {
       id: user._id,
       email: user.email,

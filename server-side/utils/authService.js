@@ -1,11 +1,16 @@
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
+import jwt from 'jsonwebtoken';
 
-const generateToken = (res, user_id, callback) => {
-  const userIdString = user_id.toString(); // Convert ObjectId to string
+const generateToken = (res, userId) => {
+  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
 
-  let token = jwt.sign({ userIdString }, "6CaeS80u6avrzqL0");
-  return token
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    secure: true, // Use secure cookies in production
+    sameSite: 'strict', // Prevent CSRF attacks
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  });
 };
 
-module.exports = generateToken;
+export default generateToken;

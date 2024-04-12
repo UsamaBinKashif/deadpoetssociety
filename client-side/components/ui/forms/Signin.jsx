@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { signinuser } from "@/lib/actions";
 import { signinSchema } from "@/lib/schemas";
 import { setCredentials } from "@/src/store/features/authSlice";
+import { ToastAction } from "@radix-ui/react-toast";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import Link from "next/link";
@@ -21,9 +22,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Spinner from "../spinner";
-import { ToastAction } from "@radix-ui/react-toast";
 import { useToast } from "../use-toast";
-import Cookies from "js-cookie";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -43,7 +42,6 @@ const Signin = () => {
         const data = await signinuser(formik.values);
         if (data.success == true) {
           dispatch(setCredentials(data.user));
-          Cookies.set("jwt", data.token);
           router.replace("/society");
         } else {
           toast({

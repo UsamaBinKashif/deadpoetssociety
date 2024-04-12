@@ -1,10 +1,12 @@
 import axios from "axios";
-import { API_BASE } from "./constants";
+import { API_BASE, DEFAULT_HEADERS } from "./constants";
+import Cookies from "js-cookie";
 
 //user actions
 const signinuser = async (values) => {
   try {
     const { data } = await axios.post(`${API_BASE}/api/user/signin`, values);
+    Cookies.set('jwt', data.jwt, { secure: true });
     return data;
   } catch (error) {
     return error.response.data;
@@ -33,12 +35,15 @@ const signoutuser = async () => {
 //post actions
 const getallposts = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE}/api/posts/read-all`, {
-      withCredentials: true, // This will send cookies along with the request
+    const { data } = await axios({
+      url: `${API_BASE}/api/posts/read-all`,
+      method: "GET",
+      secure: true,
+      headers: DEFAULT_HEADERS
     });
     return data;
   } catch (error) {
-    return error.response.data;
+    throw error
   }
 };
 

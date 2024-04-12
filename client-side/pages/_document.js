@@ -5,7 +5,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>{SITE_TITLE}</title>
         <meta property="twitter:image" content="/icon.png" />
         <meta property="twitter:card" content="/icon.png" />
         <meta property="twitter:title" content={`${SITE_TITLE}®`} />

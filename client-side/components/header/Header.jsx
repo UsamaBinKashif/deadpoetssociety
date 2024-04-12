@@ -10,6 +10,7 @@ import { logout } from "@/src/store/features/authSlice";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
+import Cookies from "js-cookie";
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -18,15 +19,16 @@ const Header = () => {
   const handleSignout = async () => {
     try {
       const data = await signoutuser();
-      if (data.success == true) {
-        router.replace("/");
+      if (data.success) {
+        Cookies.remove("jwt");
         dispatch(logout());
+        router.replace("/");
       }
     } catch (error) {}
   };
   return (
-    <header class="bg-orange-100 p-5">
-      <div class="container mx-auto flex   justify-between items-center">
+    <header className="bg-orange-100 p-5">
+      <div className="container mx-auto flex justify-between items-center">
         <img src="/icon.png" alt="main-icon" className="max-w-[50px]" />
 
         <Popover>
@@ -47,7 +49,7 @@ const Header = () => {
                 <Button
                   variant="outline"
                   className="text-xs"
-                 onClick={handleSignout} 
+                  onClick={handleSignout}
                 >
                   Logout
                 </Button>

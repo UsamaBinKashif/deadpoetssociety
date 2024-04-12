@@ -25,10 +25,11 @@ const signin = asyncHandler(async (req, res) => {
     throw new Error("Invalid email or password!");
   }
 
-  generateToken(res, user._id)
+  const token = generateToken(res, user._id)
   res.status(201).json({
     message: "Signed in",
     success: true,
+    jwt: token,
     user: {
       id: user._id,
       email: user.email,

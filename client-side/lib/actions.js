@@ -47,4 +47,19 @@ const getallposts = async () => {
   }
 };
 
-export { signinuser, signoutuser, signupuser, getallposts };
+const addPost = async (requestData) => {
+  try {
+    const { data } = await axios({
+      url: `${API_BASE}/api/posts/create-post`,
+      method: "POST",
+      secure: true,
+      headers: DEFAULT_HEADERS,
+      data: requestData
+    });
+    return data;
+  } catch (error) {
+    throw error
+  }
+};
+
+export { signinuser, signoutuser, signupuser, getallposts, addPost };

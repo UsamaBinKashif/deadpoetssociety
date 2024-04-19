@@ -63,7 +63,7 @@ const Signup = () => {
     <section>
       <div className="max-w-screen-xl mx-auto px-4 py-24 gap-12 text-gray-600 overflow-hidden md:px-8 justify-center md:justify-normal flex items-center">
         <div className="flex-1 hidden md:block">
-          <img src="/assets/signup-poster.svg" className="max-w-lg" />
+          <img src="/assets/signup-poster.svg" className="max-w-lg" alt="signup-page-poster" />
         </div>
         <form
           className="flex-none space-y-5 max-w-xl"

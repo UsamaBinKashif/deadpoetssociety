@@ -27,7 +27,7 @@ const Header = () => {
     } catch (error) {}
   };
   return (
-    <header className="bg-orange-100 p-5">
+    <header className="bg-primary p-5">
       <div className="container mx-auto flex justify-between items-center">
         <img src="/icon.png" alt="main-icon" className="max-w-[50px]" />
 

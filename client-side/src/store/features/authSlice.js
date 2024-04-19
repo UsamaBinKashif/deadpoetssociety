@@ -5,6 +5,7 @@ const initialState = {
     typeof window !== "undefined" && localStorage?.getItem("userInfo")
       ? JSON.parse(localStorage.getItem("userInfo"))
       : null,
+  posts: 0,
 };
 
 const authSlice = createSlice({
@@ -20,9 +21,12 @@ const authSlice = createSlice({
       state.userInfo = null;
       localStorage.removeItem("userInfo");
     },
+    addPosts: (state) => {
+      state.posts += 1
+    }
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, addPosts } = authSlice.actions;
 
 export default authSlice.reducer;

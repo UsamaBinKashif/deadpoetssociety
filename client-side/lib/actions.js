@@ -62,4 +62,21 @@ const addPost = async (requestData) => {
   }
 };
 
-export { signinuser, signoutuser, signupuser, getallposts, addPost };
+const getSinglePost = async (requestData) => {
+  
+  try {
+   
+    const { data } = await axios({
+      url: `${API_BASE}/api/posts/read-singlepost`,
+      method: "POST",
+      secure: true,
+      headers: DEFAULT_HEADERS,
+      data: requestData
+    });
+    return data;
+  } catch (error) {
+    throw error
+  }
+};
+
+export { signinuser, signoutuser, signupuser, getallposts, addPost, getSinglePost };

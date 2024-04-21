@@ -3,10 +3,9 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  CardFooter
 } from "@/components/ui/card";
+import Link from "next/link";
 const Poetry = ({ poetry }) => {
   // console.log(poetry)
   return (
@@ -20,29 +19,42 @@ const Poetry = ({ poetry }) => {
           title="comments"
         >
           <div>
-            {poetry?.comment?.length === 0 && <h1 className="text-[8px] md:text-xs">No comments 🥱</h1>}
+            {poetry?.comment?.length === 0 && (
+              <Link
+                href={`/society/${poetry._id}`}
+                className="text-[8px] md:text-xs"
+              >
+                No comments 🥱
+              </Link>
+            )}
             {poetry?.comment[0] && (
-              <img
-                className="w-[25px]  h-[25px] rounded-full object-cover absolute left-[15px] top-[-10px] p-[2px]"
-                src={poetry?.comment[0]?.postedBy?.profile_image}
-                alt="profile"
-              />
+              <Link href={`/society/${poetry._id}`}>
+                <img
+                  className="w-[25px]  h-[25px] rounded-full object-cover absolute left-[15px] top-[-10px] p-[2px]"
+                  src={poetry?.comment[0]?.postedBy?.profile_image}
+                  alt="profile"
+                />
+              </Link>
             )}
 
             {poetry?.comment[1] && (
-              <img
-                className="w-[25px]  h-[25px] rounded-full object-cover absolute left-[25px] bottom-0 p-[2px]"
-                src={poetry?.comment[1]?.postedBy?.profile_image}
-                alt="profile"
-              />
+              <Link href={`/society/${poetry._id}`}>
+                <img
+                  className="w-[25px]  h-[25px] rounded-full object-cover absolute left-[25px] bottom-0 p-[2px]"
+                  src={poetry?.comment[1]?.postedBy?.profile_image}
+                  alt="profile"
+                />
+              </Link>
             )}
 
             {poetry?.comment[2] && (
-              <img
-                className="w-[25px]  h-[25px] rounded-full object-cover absolute left-[4px] bottom-0 p-[2px]"
-                src={poetry?.comment[2]?.postedBy?.profile_image}
-                alt="profile"
-              />
+              <Link href={`/society/${poetry._id}`}>
+                <img
+                  className="w-[25px]  h-[25px] rounded-full object-cover absolute left-[4px] bottom-0 p-[2px]"
+                  src={poetry?.comment[2]?.postedBy?.profile_image}
+                  alt="profile"
+                />
+              </Link>
             )}
           </div>
         </div>

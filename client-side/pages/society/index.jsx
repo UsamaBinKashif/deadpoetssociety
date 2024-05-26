@@ -9,6 +9,7 @@ const index = () => {
     <main>
       <Header />
       <Poetries />
+     
     </main>
   );
 };

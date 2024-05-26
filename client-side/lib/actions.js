@@ -38,8 +38,6 @@ const getallposts = async () => {
     const { data } = await axios({
       url: `${API_BASE}/api/posts/read-all`,
       method: "GET",
-      secure: true,
-      headers: DEFAULT_HEADERS
     });
     return data;
   } catch (error) {
@@ -53,7 +51,6 @@ const addPost = async (requestData) => {
       url: `${API_BASE}/api/posts/create-post`,
       method: "POST",
       secure: true,
-      headers: DEFAULT_HEADERS,
       data: requestData
     });
     return data;
@@ -63,14 +60,13 @@ const addPost = async (requestData) => {
 };
 
 const getSinglePost = async (requestData) => {
-  
+
   try {
-   
+
     const { data } = await axios({
       url: `${API_BASE}/api/posts/read-singlepost`,
       method: "POST",
       secure: true,
-      headers: DEFAULT_HEADERS,
       data: requestData
     });
     return data;
@@ -79,4 +75,35 @@ const getSinglePost = async (requestData) => {
   }
 };
 
-export { signinuser, signoutuser, signupuser, getallposts, addPost, getSinglePost };
+
+const deletePost = async (requestData) => {
+  try {
+
+    const { data } = await axios({
+      url: `${API_BASE}/api/posts/delete-post`,
+      method: "POST",
+      secure: true,
+      data: requestData
+    });
+    return data;
+  } catch (error) {
+    throw error
+  }
+};
+
+
+const addComment = async (requestData) => {
+  try {
+    const { data } = await axios({
+      url: `${API_BASE}/api/posts/add-comment`,
+      method: "PUT",
+      secure: true,
+      data: requestData
+    });
+    return data;
+  } catch (error) {
+    throw error
+  }
+};
+
+export { signinuser, signoutuser, signupuser, getallposts, addPost, getSinglePost, deletePost, addComment };

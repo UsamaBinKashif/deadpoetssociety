@@ -32,7 +32,7 @@ const Header = () => {
         <img src="/icon.png" alt="main-icon" className="max-w-[50px]" />
 
         <Popover>
-          <PopoverTrigger asChild className="cursor-pointer">
+          <PopoverTrigger asChild className="cursor-pointer border border-white">
             <Avatar title={userInfo?.name}>
               <AvatarImage src={userInfo?.profile_image} />
               <AvatarFallback>{userInfo?.name?.slice(0, 1)}</AvatarFallback>
@@ -44,7 +44,7 @@ const Header = () => {
                 <h4 className="font-medium leading-none">{userInfo?.name}</h4>
               </div>
               <div className="flex gap-x-4">
-                <Button className="text-xs outline-none">View Profile</Button>
+                {/* <Button className="text-xs outline-none">View Profile</Button> */}
 
                 <Button
                   variant="outline"

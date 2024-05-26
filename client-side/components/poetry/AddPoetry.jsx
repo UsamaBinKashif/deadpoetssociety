@@ -81,7 +81,11 @@ const AddPoetry = () => {
       </div>
       <DrawerFooter>
         <div className="flex justify-center gap-x-4">
-          <Button className="w-[80px]" onClick={formik.handleSubmit}>
+          <Button
+            className="w-[80px]"
+            onClick={formik.handleSubmit}
+            disabled={formik.isSubmitting}
+          >
             Add
           </Button>
           <DrawerClose>

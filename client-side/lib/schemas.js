@@ -14,6 +14,7 @@ export const signupSchema = Yup.object({
     .required("email is required to enter the society!"),
   password: Yup.string().required("password is required!"),
 });
+
 export const postSchema = Yup.object({
   description: Yup.string()
     .required("poetry is required!"),

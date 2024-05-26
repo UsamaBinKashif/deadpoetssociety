@@ -17,8 +17,8 @@ import { useSelector } from "react-redux";
 
 const CommentPage = () => {
   const router = useRouter();
-  const { id } = useSelector((state) => state?.auth?.userInfo);
-
+  const userInfo = useSelector((state) => state?.auth?.userInfo);
+  const id = userInfo?.id;
   const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,7 +49,7 @@ const CommentPage = () => {
       try {
         setSubmitting(true); // Set submitting state to true
         const data = await addComment({
-          text: values.comment,
+          text: values?.comment,
           commentedBy: id,
           postId: router?.query?.comment,
         });
@@ -117,7 +117,7 @@ const CommentPage = () => {
           type="text"
           className="w-60"
           onChange={formik.handleChange}
-          value={formik.values.comment}
+          value={formik?.values?.comment}
         />
         <Button
           type="submit"
@@ -132,7 +132,7 @@ const CommentPage = () => {
           <p className="text-[8px] md:text-xs">No comments 🥱</p>
         ) : (
           <>
-            {post.comment.map((comment) => (
+            {post?.comment.map((comment) => (
               <Card className="w-96 flex flex-col m-2" key={comment?._id}>
                 <CardContent className="p-2">
                   <p>{comment?.text}</p>

@@ -7,6 +7,7 @@ const {
   handleReadAllPosts,
   handleReadPost,
   handleReadUserPosts,
+  handleDeletePost
 } = require("../controllers/post.controllers");
 
 // importing router
@@ -18,5 +19,6 @@ router.delete("/del-comment", protect, handleDeleteComment);
 router.get("/read-all", protect, handleReadAllPosts);
 router.post("/read-singlepost", protect, handleReadPost);
 router.post("/read-userposts", protect, handleReadUserPosts);
+router.post("/delete-post", protect, handleDeletePost);
 
 module.exports = router;

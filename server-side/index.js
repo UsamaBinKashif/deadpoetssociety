@@ -12,6 +12,8 @@ const userRoutes = require("./routes/user.routes.js");
 
 // Initializing Express app
 const app = express();
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://dpsapi.vercel.app", "https://deadpoetssociety.vercel.app"], // Allow this origin to send requests
@@ -24,7 +26,6 @@ connectToDatabase();
 
 // Middleware
 dotenv.config();
-app.use(cookieParser()); // Parse the cookies
 app.use(bodyParser.json({ limit: "30mb", extended: true })); // Parse incoming request bodies in JSON format
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true })); // Parse incoming requests with URL-encoded payloads
 app.use(helmet()); // Set various HTTP headers for security

@@ -69,6 +69,28 @@ const handleReadPost = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    delete post
+// @route   POST /api/posts/delete-post
+// @access  Public
+const handleDeletePost = asyncHandler(async (req, res) => {
+  const { postId } = req.body;
+  try {
+    const post = await POST.findById(postId);
+
+    if (post) {
+      await POST.deleteOne({ _id: postId });
+      res.status(200).json("Deleted!");
+    } else {
+      res.status(404).json({ message: "No post found!" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error!" });
+  } 
+});
+
+
+
+
 // @desc    read logged users posts
 // @route   POST /api/posts/read-userposts
 // @access  Public
@@ -177,6 +199,7 @@ const handleDeleteComment = asyncHandler(async (req, res) => {
 module.exports = {
   handleCreatePost,
   handleAddComment,
+  handleDeletePost,
   handleDeleteComment,
   handleReadAllPosts,
   handleReadPost,

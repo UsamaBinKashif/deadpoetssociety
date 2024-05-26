@@ -25,11 +25,18 @@ const signin = asyncHandler(async (req, res) => {
     throw new Error("Invalid email or password!");
   }
 
-  const token = generateToken(res, user._id)
+  const token = generateToken(user._id);
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // expires in 7 days
+    sameSite: false
+  });
+
+
+
   res.status(201).json({
     message: "Signed in",
     success: true,
-    jwt: token,
     user: {
       id: user._id,
       email: user.email,
@@ -81,6 +88,7 @@ const signout = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
+    sameSite: false
   });
   res.status(201).json({ message: "Signed out!", success: true });
 });
